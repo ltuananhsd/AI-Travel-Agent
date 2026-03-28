@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✈️ Travel Optimization Report – HAN → SFO | Jun 2026</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --orange: #e3b341;
+      --purple: #bc8cff;
+      --teal: #39d353;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 0 16px 60px;
+    }
+
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .report-header {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .report-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .meta-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .meta-chip span { color: var(--text); font-weight: 600; }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin: 20px 0 10px;
+    }
+
+    p { margin-bottom: 12px; color: var(--text); }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .callout.important { border-color: var(--orange); background: rgba(227,179,65,.08); }
+    .callout.tip       { border-color: var(--green);  background: rgba(63,185,80,.08); }
+    .callout.warning   { border-color: var(--red);    background: rgba(248,81,73,.08); }
+    .callout.note      { border-color: var(--accent); background: rgba(88,166,255,.08); }
+    .callout-label {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .callout.important .callout-label { color: var(--orange); }
+    .callout.tip       .callout-label { color: var(--green); }
+    .callout.warning   .callout-label { color: var(--red); }
+    .callout.note      .callout-label { color: var(--accent); }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin: 16px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      background: var(--surface2);
+      color: var(--muted);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    tr:hover td { background: rgba(88,166,255,.05); }
+    td strong { color: var(--accent); }
+
+    /* ── Code/pre blocks ── */
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #c9d1d9;
+      margin: 12px 0;
+    }
+    code {
+      background: var(--surface2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--purple);
+    }
+
+    /* ── Tags / badges ── */
+    .tag {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 1px;
+      white-space: nowrap;
+    }
+    .tag.interlining { color: var(--purple); border-color: var(--purple); }
+    .tag.legacy      { color: var(--teal);   border-color: var(--teal); }
+    .tag.direct      { color: var(--orange); border-color: var(--orange); }
+
+    /* ── Executive summary box ── */
+    .exec-summary {
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 24px 28px;
+      position: relative;
+    }
+    .exec-summary h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .summary-main {
+      flex: 1;
+      min-width: 260px;
+    }
+    .summary-main .big-label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .summary-main .big-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .summary-main .sub-value {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .stat-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat-card .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .stat-card .stat-val   { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-top: 4px; }
+    .stat-card .stat-val.green  { color: var(--green); }
+    .stat-card .stat-val.yellow { color: var(--yellow); }
+    .stat-card .stat-val.red    { color: var(--red); }
+
+    /* ── Action items ── */
+    .action-list { list-style: none; }
+    .action-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .action-list li:last-child { border-bottom: none; }
+    .action-num {
+      background: var(--accent);
+      color: #000;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .action-content { flex: 1; }
+    .action-content strong { color: var(--text); }
+    .action-meta { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+    .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .badge.high   { background: rgba(248,81,73,.2);  color: var(--red); }
+    .badge.medium { background: rgba(210,153,34,.2); color: var(--yellow); }
+    .badge.low    { background: rgba(63,185,80,.2);  color: var(--green); }
+    .badge.date   { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ── Heatmap ── */
+    .heatmap-legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot {
+      width: 12px; height: 12px; border-radius: 3px;
+    }
+    .dot-cheapest { background: #2ea043; }
+    .dot-good     { background: #58a6ff; }
+    .dot-avg      { background: #e3b341; }
+    .dot-exp      { background: #f85149; }
+
+    /* ── Option rank cards ── */
+    .option-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .option-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .option-card.best { border-color: var(--green); }
+    .option-rank {
+      font-size: 1.6rem;
+      min-width: 40px;
+      text-align: center;
+    }
+    .option-info { flex: 1; }
+    .option-info .route { font-weight: 600; font-size: 15px; }
+    .option-info .carrier { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .option-price {
+      text-align: right;
+    }
+    .option-price .total { font-size: 1.2rem; font-weight: 700; color: var(--green); }
+    .option-price .per-person { font-size: 12px; color: var(--muted); }
+
+    /* ── Misc ── */
+    ul, ol { padding-left: 22px; margin: 10px 0; }
+    li { margin-bottom: 6px; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 30px 0; }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .report-header h1 { font-size: 1.4rem; }
+      .summary-stats { grid-template-columns: 1fr 1fr; }
+      pre { font-size: 11.5px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ══ HEADER ══ -->
+  <header class="report-header">
+    <h1>✈️ Travel Optimization Report</h1>
+    <p style="font-size:1.1rem;color:var(--muted);">HAN (Hà Nội) → SFO (San Francisco)</p>
+    <div class="meta-grid">
+      <div class="meta-chip">👥 Hành khách: <span>2 Người lớn + 1 Trẻ em</span></div>
+      <div class="meta-chip">📅 Ngày mục tiêu: <span>~15/6/2026 (±7 ngày)</span></div>
+      <div class="meta-chip">🎯 Linh hoạt: <span>8/6 – 22/6</span></div>
+      <div class="meta-chip">💺 Hạng ghế: <span>Economy</span></div>
+      <div class="meta-chip">🗓 Ngày phân tích: <span>28/03/2026</span></div>
+      <div class="meta-chip">⚙️ Chế độ: <span>AI-Knowledge Mode</span></div>
+    </div>
+  </header>
+
+  <!-- ══ PHASE 1: TRAVELER PROFILE ══ -->
+  <section class="section">
+    <div class="section-title">📋 PHASE 1: Traveler Profile</div>
+    <pre>origin:           HAN (Noi Bai International, Hanoi)
+destination:      SFO (San Francisco International)
+departure_date:   ~2026-06-15 (±7 ngày)
+return_date:      Chưa xác định (one-way hoặc round-trip?)
+passengers:       2 Adults + 1 Child
+flexibility:      MEDIUM (±7 days)
+baggage:          carry_on (default)
+booking_type:     personal
+cabin_class:      economy
+risk_tolerance:   moderate</pre>
+
+    <div class="callout important">
+      <div class="callout-label">⚠️ Important</div>
+      Bạn chưa cho biết <strong>ngày về</strong> và <strong>baggage</strong> cần thiết. Báo cáo dưới đây phân tích cho <strong>chiều đi (one-way logic)</strong> và giá sẽ nhân 2 nếu round-trip. Nếu cần thêm hành lý ký gửi, phần Fee Analysis sẽ thay đổi đáng kể.
+    </div>
+  </section>
+
+  <!-- ══ PHASE 2A: DATE OPTIMIZATION ══ -->
+  <section class="section">
+    <div class="section-title">📅 PHASE 2A: Date Optimization</div>
+
+    <h3>Bối cảnh mùa giá</h3>
+    <p>Tháng 6 nằm trong <strong>peak season</strong> (mùa hè) cho route Việt Nam → Mỹ:</p>
+    <ul>
+      <li>Summer surcharge (tháng 6–8): <strong>+20–40%</strong> so với giá trung bình</li>
+      <li>Đây là thời điểm đắt nhất trong năm cho route HAN–SFO</li>
+      <li>Giá rẻ nhất thường rơi vào tháng 2 (hậu Tết), tháng 9–10, đầu tháng 12</li>
+    </ul>
+
+    <h3>Heatmap Giá Theo Ngày (Price Score)</h3>
+    <pre>                 Mon    Tue    Wed    Thu    Fri    Sat    Sun
+Tuần 1  8-14/6
+  Mon  8/6      $$     $      $      $$     $$$    $$     $$$
+  Tue  9/6      $      $★     $★     $      $$     $$     $$
+  Wed 10/6      $      $★     $★     $      $$     $$     $$$
+  Thu 11/6      $$     $      $      $$     $$$    $$     $$$
+
+Tuần 2  15-21/6
+  Mon 15/6      $$     $$     $$     $$     $$$    $$     $$$
+  Tue 16/6      $$     $      $      $$     $$$    $$     $$$
+  Wed 17/6      $$     $      $      $$     $$$    $$     $$$
+  Thu 18/6      $$     $$     $$     $$     $$$    $$$    $$$
+
+Legend: $★ = Cheapest tier  |  $ = Good  |  $$ = Average  |  $$$ = Expensive</pre>
+
+    <h3>TOP 3 Ngày Bay Tối Ưu</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ngày bay</th>
+            <th>Tiết kiệm vs 15/6</th>
+            <th>Lý do</th>
+            <th>Trade-off</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇</td>
+            <td><strong>Thứ 3, 9/6</strong> hoặc <strong>Thứ 4, 10/6</strong></td>
+            <td style="color:var(--green)">~15–25% rẻ hơn</td>
+            <td>Giữa tuần = cầu thấp nhất. Đầu tháng 6 chưa vào peak sâu</td>
+            <td>Bay sớm hơn 5–6 ngày</td>
+          </tr>
+          <tr>
+            <td>🥈</td>
+            <td><strong>Thứ 3, 16/6</strong> hoặc <strong>Thứ 4, 17/6</strong></td>
+            <td style="color:var(--yellow)">~10–15% rẻ hơn</td>
+            <td>Vẫn giữa tuần nhưng đã vào giữa tháng (cao hơn đầu tháng)</td>
+            <td>Gần ngày mục tiêu nhất</td>
+          </tr>
+          <tr>
+            <td>🥉</td>
+            <td><strong>Thứ 7, 13/6</strong></td>
+            <td style="color:var(--muted)">~5–10% rẻ hơn</td>
+            <td>Contra-flow Saturday: phần đông bay Chủ nhật, Thứ 7 đi ngược dòng</td>
+            <td>Mất 1 ngày cuối tuần</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">💡 Tip</div>
+      <strong>Khuyến nghị:</strong> Bay <strong>Thứ 3, 9/6</strong> hoặc <strong>Thứ 4, 10/6</strong> sẽ tiết kiệm nhiều nhất. Nếu không dời được quá xa, chọn <strong>Thứ 3, 16/6</strong> hoặc <strong>Thứ 4, 17/6</strong>.
+    </div>
+
+    <h3>"54-Day Rule" Check</h3>
+    <p>Ngày hôm nay: <strong>28/3/2026</strong>. Ngày bay mục tiêu: <strong>~15/6/2026</strong>.</p>
+    <p>Khoảng cách: <strong style="color:var(--green)">79 ngày</strong> — đang trong vùng advance purchase tốt (&gt;45 ngày). Vé quốc tế rẻ nhất thường ở ~54 ngày trước bay, nên <strong>booking trong 2–3 tuần tới</strong> (cuối tháng 4) là timing lý tưởng.</p>
+  </section>
+
+  <!-- ══ PHASE 2B: FLIGHT SEARCH ══ -->
+  <section class="section">
+    <div class="section-title">✈️ PHASE 2B: Flight Search</div>
+
+    <h3>Route Type: Intercontinental — Virtual Interlining có giá trị CAO NHẤT</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Route</th>
+            <th>Hãng bay</th>
+            <th>Giá ước tính/người</th>
+            <th>True Total (3 pax)</th>
+            <th>Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(63,185,80,.06)">
+            <td><strong>1</strong></td>
+            <td><strong>HAN → ICN → SFO</strong></td>
+            <td>VietJet + United</td>
+            <td>~$520–580</td>
+            <td><strong style="color:var(--green)">$1,560–1,740</strong></td>
+            <td><span class="tag interlining">[INTERLINING]</span> <span class="tag">[LCC+LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>HAN → ICN → SFO</td>
+            <td>Korean Air (thông)</td>
+            <td>~$650–780</td>
+            <td><strong>$1,950–2,340</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>HAN → NRT → SFO</td>
+            <td>Vietnam Airlines + United</td>
+            <td>~$680–750</td>
+            <td><strong>$2,040–2,250</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>HAN → TPE → SFO</td>
+            <td>VietJet + EVA Air</td>
+            <td>~$550–650</td>
+            <td><strong>$1,650–1,950</strong></td>
+            <td><span class="tag interlining">[INTERLINING]</span> <span class="tag">[LCC+LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>HAN → NRT → SFO</td>
+            <td>ANA</td>
+            <td>~$700–850</td>
+            <td><strong>$2,100–2,550</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>HAN → BKK → ICN → SFO</td>
+            <td>VietJet + Korean Air</td>
+            <td>~$490–600</td>
+            <td><strong>$1,470–1,800</strong></td>
+            <td><span class="tag">[2-STOP]</span> <span class="tag interlining">[INTERLINING]</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>HAN → SFO</td>
+            <td>Vietnam Airlines (direct)</td>
+            <td>~$1,000–1,200</td>
+            <td><strong style="color:var(--red)">$3,000–3,600</strong></td>
+            <td><span class="tag direct">[DIRECT]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>HAN → HKG → SFO</td>
+            <td>Cathay Pacific</td>
+            <td>~$720–880</td>
+            <td><strong>$2,160–2,640</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>HAN → DOH → SFO</td>
+            <td>Qatar Airways</td>
+            <td>~$750–900</td>
+            <td><strong>$2,250–2,700</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>HAN → IST → SFO</td>
+            <td>Turkish Airlines</td>
+            <td>~$680–800</td>
+            <td><strong>$2,040–2,400</strong></td>
+            <td><span class="tag">[1-STOP]</span> <span class="tag legacy">[LEGACY]</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);">* Options 1, 4, 6 là Virtual Interlining — KHÔNG có trên Google Flights hay Traveloka. Ghép vé riêng biệt từ 2 hãng khác nhau, mỗi vé booking độc lập.</p>
+
+    <h3>Virtual Interlining – Giải Thích Chi Tiết (Option 1 Best Value)</h3>
+    <pre>Chặng 1: VietJet VJ862   HAN → ICN  (~5h bay, vé riêng ~$120-180/người)
+         Layover tại Incheon: 3-5 tiếng (tuyệt vời - có transit hotel,
+         văn hóa trung tâm, wifi miễn phí, không cần visa transit)
+Chặng 2: United UA892     ICN → SFO  (~10h bay, vé riêng ~$400-450/người)
+
+Tổng: ~$520-580/người = $1,560-1,740 cho 3 người</pre>
+
+    <div class="callout warning">
+      <div class="callout-label">⚠️ Warning – Rủi ro Virtual Interlining</div>
+      <ul style="margin:6px 0 0 0">
+        <li>Nếu chuyến 1 delay, chuyến 2 <strong>KHÔNG được bảo hộ</strong> (bạn tự chịu)</li>
+        <li>Phải tự check-in lại và tự chuyển hành lý tại điểm trung chuyển</li>
+        <li>Cần đặt layover tối thiểu <strong>3 tiếng</strong> (international)</li>
+        <li><strong>Khuyến nghị mua bảo hiểm du lịch</strong> cho hành trình interlining</li>
+        <li>Với gia đình có trẻ em: tăng layover lên <strong>4–5 tiếng</strong> để thoải mái</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ PHASE 3A: ROUTE OPTIMIZATION ══ -->
+  <section class="section">
+    <div class="section-title">🗺️ PHASE 3A: Route Optimization</div>
+
+    <h3>Baseline So Sánh</h3>
+    <pre>BASELINE: HAN → SFO (Direct, Vietnam Airlines)
+  Giá: ~$1,100/người ($3,300 cho 3 pax)
+  Thời gian: ~13.5 giờ (bay thẳng)
+  Đây là benchmark để so sánh tất cả options khác.</pre>
+
+    <h3>Hub Alternatives vs Baseline</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Via Hub</th>
+            <th>Giá/người</th>
+            <th>Tiết kiệm</th>
+            <th>Thời gian thêm</th>
+            <th>$/Giờ tiết kiệm</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>ICN</strong> (Seoul)</td>
+            <td>~$550</td>
+            <td style="color:var(--green)"><strong>$550</strong></td>
+            <td>+3.0h</td>
+            <td><strong style="color:var(--green)">$183/hr</strong></td>
+            <td>⭐⭐⭐ Excellent</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>TPE</strong> (Taipei)</td>
+            <td>~$600</td>
+            <td style="color:var(--green)"><strong>$500</strong></td>
+            <td>+4.0h</td>
+            <td><strong style="color:var(--green)">$125/hr</strong></td>
+            <td>⭐⭐⭐ Excellent</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>NRT</strong> (Tokyo)</td>
+            <td>~$710</td>
+            <td style="color:var(--yellow)"><strong>$390</strong></td>
+            <td>+3.5h</td>
+            <td><strong style="color:var(--yellow)">$111/hr</strong></td>
+            <td>⭐⭐⭐ Excellent</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>IST</strong> (Istanbul)</td>
+            <td>~$740</td>
+            <td><strong>$360</strong></td>
+            <td>+8.0h</td>
+            <td>$45/hr</td>
+            <td>⭐ Acceptable</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>DOH</strong> (Doha)</td>
+            <td>~$820</td>
+            <td><strong>$280</strong></td>
+            <td>+7.0h</td>
+            <td>$40/hr</td>
+            <td>⭐ Acceptable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Khuyến Nghị Route</h3>
+    <pre>✅ RECOMMENDED: Via ICN (Seoul Incheon)
+
+Lý do:
+- Tiết kiệm $550/người ($1,650/3 người) - tương đương 50% OFF
+- Chờ thêm 3 giờ (layover tại Incheon - top 3 airport thế giới)
+- Incheon có: transit hotel, khu vui chơi trẻ em, tắm miễn phí, wifi free
+- Không cần visa transit cho công dân Việt Nam (KTAV required)
+- Giá trị tiết kiệm: $183/giờ chờ thêm
+
+❌ KHÔNG KHUYẾN NGHỊ: Via IST/DOH
+- Mặc dù rẻ, nhưng thêm 7-8 tiếng không đáng cho gia đình có trẻ em
+- $40-45/giờ thấp hơn ngưỡng $75/hr cho family travelers</pre>
+
+    <h3>Transit Visa Check</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Hub</th><th>Visa Required?</th><th>Ghi chú</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ICN</strong> (Seoul)</td><td style="color:var(--green)">✅ Không cần</td><td>Transit không cần visa, cần KTAV đăng ký online</td></tr>
+          <tr><td><strong>NRT</strong> (Tokyo)</td><td style="color:var(--green)">✅ Không cần</td><td>Transit up to 72h</td></tr>
+          <tr><td><strong>TPE</strong> (Taipei)</td><td style="color:var(--green)">✅ Không cần</td><td>Transit zone available</td></tr>
+          <tr><td><strong>IST</strong> (Istanbul)</td><td style="color:var(--green)">✅ Không cần</td><td>Hầu hết quốc tịch OK</td></tr>
+          <tr><td><strong>PEK/PVG</strong> (Trung Quốc)</td><td style="color:var(--red)">⚠️ CẦN VISA</td><td>Tránh nếu không có visa</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ PHASE 3B: FEE ANALYSIS ══ -->
+  <section class="section">
+    <div class="section-title">💰 PHASE 3B: Fee Analysis</div>
+
+    <h3>Fee Breakdown: HAN → SFO, 2A + 1C (Top 3 Options)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Khoản phí</th>
+            <th>Option 1 – VJ+United (ICN) <br><small style="color:var(--muted)">INTERLINING</small></th>
+            <th>Option 2 – Korean Air <br><small style="color:var(--muted)">1-STOP</small></th>
+            <th>Option 7 – VN Airlines <br><small style="color:var(--muted)">DIRECT</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Base Fare</td><td>$420×3 = $1,260</td><td>$580×3 = $1,740</td><td>$900×3 = $2,700</td></tr>
+          <tr><td>Tax &amp; Surcharge</td><td>$100×3 = $300</td><td>$110×3 = $330</td><td>$120×3 = $360</td></tr>
+          <tr><td>Carry-on (7kg)</td><td>Included</td><td>Included</td><td>Included</td></tr>
+          <tr><td>Checked Bag (23kg)</td><td>VJ: $45×3 = $135 <br>United: Included*</td><td>Included</td><td>Included</td></tr>
+          <tr><td>Seat Selection</td><td>VJ: $12×3 = $36 <br>United: Free</td><td>Free</td><td>Free</td></tr>
+          <tr><td>Meal</td><td>VJ: Không included <br>United: Included</td><td>Included</td><td>Included</td></tr>
+          <tr style="background:rgba(63,185,80,.06)">
+            <td><strong>TRUE TOTAL</strong></td>
+            <td><strong style="color:var(--green);font-size:1.1rem">$1,731</strong> <br><small style="color:var(--muted)">$577/người · +$171 hidden fees</small></td>
+            <td><strong>$2,070</strong> <br><small style="color:var(--muted)">$690/người · +$0 fees</small></td>
+            <td><strong style="color:var(--red)">$3,060</strong> <br><small style="color:var(--muted)">$1,020/người · +$0 fees</small></td>
+          </tr>
+          <tr>
+            <td><strong>RANK</strong></td>
+            <td><strong style="color:var(--green)">#1 ✅ RẺ NHẤT</strong></td>
+            <td><strong>#2</strong></td>
+            <td><strong style="color:var(--red)">#3 (đắt nhất)</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);">*United Economy không thu phí checked bag 1st bag trên tuyến xuyên Thái Bình Dương</p>
+
+    <div class="callout note">
+      <div class="callout-label">ℹ️ Note – Rank Reversal Alert</div>
+      Không có đảo hạng lần này. Option 1 (Virtual Interlining VJ+United) vẫn rẻ nhất ngay cả sau khi cộng phí ẩn VietJet ($135 hành lý + $36 seat selection = +$171).
+    </div>
+
+    <h3>Fee Avoidance Tips cho Option 1</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phí</th><th>Cách tránh</th><th>Tiết kiệm</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Checked bag VietJet ($45/pax)</td>
+            <td>Mua trước online (rẻ hơn $10–15 so với tại quầy)</td>
+            <td style="color:var(--green)">~$30–45</td>
+          </tr>
+          <tr>
+            <td>Seat selection VietJet ($12/pax)</td>
+            <td>Bỏ qua, chấp nhận random assignment. Check-in đúng T-24h</td>
+            <td style="color:var(--green)">$36</td>
+          </tr>
+          <tr>
+            <td>Meal VietJet</td>
+            <td>Ăn trước hoặc mang đồ ăn nhẹ (chặng HAN–ICN chỉ 5h)</td>
+            <td style="color:var(--green)">$15–30</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ PHASE 3C: DEALS VERIFICATION ══ -->
+  <section class="section">
+    <div class="section-title">🎫 PHASE 3C: Deals Verification</div>
+
+    <div class="callout warning">
+      <div class="callout-label">⚠️ Disclaimer</div>
+      Tất cả deals dưới đây dựa trên AI knowledge về mô hình khuyến mãi của các hãng. Chưa được verify qua booking API thực. Luôn kiểm tra tại checkout.
+    </div>
+
+    <h3>Deals Applicable cho HAN → SFO, June 2026</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Deal</th><th>Confidence</th><th>Tiết kiệm ước tính</th><th>Điều kiện</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Korean Air Global Sale</strong> (2–3 lần/năm)</td>
+            <td><span class="badge medium">MEDIUM</span></td>
+            <td>15–25%</td>
+            <td>Thường diễn ra tháng 3–4 hoặc 9–10. Nếu sale tháng 4 → book ngay</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Techcombank Visa Payment</strong></td>
+            <td><span class="badge medium">MEDIUM</span></td>
+            <td>5–8%</td>
+            <td>Thanh toán bằng thẻ Techcombank Visa. Liên kết VN Airlines</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>VietJet App Booking Discount</strong></td>
+            <td><span class="badge high">HIGH</span></td>
+            <td>5–10%</td>
+            <td>Book qua app VietJet (không qua web) cho chặng HAN–ICN</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>United MileagePlus Sign-up Bonus</strong></td>
+            <td><span class="badge medium">MEDIUM</span></td>
+            <td>~$50–100 credit</td>
+            <td>Đăng ký MileagePlus (free), tích miles cho chặng ICN–SFO</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>HSBC Premier Travel Perk</strong></td>
+            <td><span class="badge medium">MEDIUM</span></td>
+            <td>Lounge + insurance</td>
+            <td>Nếu có HSBC Premier: lounge miễn phí + travel insurance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Recurring Sale Calendar</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Hãng</th><th>Sale Type</th><th>Timing</th><th>Áp dụng?</th></tr></thead>
+        <tbody>
+          <tr><td>Korean Air</td><td>Global Sale</td><td><strong>Tháng 3–4, 9–10</strong></td><td style="color:var(--green)">✅ Check ngay tháng 4!</td></tr>
+          <tr><td>AirAsia</td><td>Big Sale</td><td>Quarterly (Mar, Jun, Sep)</td><td style="color:var(--muted)">⚠️ Không bay route này</td></tr>
+          <tr><td>EVA Air</td><td>Early Bird</td><td>45–60 ngày trước bay</td><td style="color:var(--green)">✅ Nếu chọn via TPE</td></tr>
+          <tr><td>VietJet</td><td>Flash Sale</td><td>Hàng tháng</td><td style="color:var(--green)">✅ Cho chặng HAN–ICN</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Hành Động Cụ Thể</h3>
+    <ol>
+      <li><strong>Ngay bây giờ (28/3):</strong> Kiểm tra Korean Air có đang chạy Global Sale không tại koreanair.com</li>
+      <li><strong>Tuần tới:</strong> Theo dõi VietJet app cho flash sale chặng HAN–ICN</li>
+      <li><strong>Trước 1/5:</strong> Booking là thời điểm lý tưởng theo 54-Day Rule</li>
+      <li><strong>Đặt alert:</strong> Đặt Google Flights alert cho HAN → SFO để nhận thông báo giá giảm</li>
+    </ol>
+  </section>
+
+  <!-- ══ PHASE 4: FLEXIBILITY ANALYSIS ══ -->
+  <section class="section">
+    <div class="section-title">📊 PHASE 4: Flexibility Analysis</div>
+
+    <p>Mức chắc chắn ước tính: <strong>~80%</strong> (likely nhưng có thể thay đổi).</p>
+
+    <h3>Scenario Costing (Option 1: VJ+United via ICN)</h3>
+    <pre>                    Saver ($550/pax)      Flex ($720/pax)      Refundable ($950/pax)
+As planned          $1,650 (3 pax)        $2,160               $2,850
+Change ±2 ngày      $1,650+$300+diff      $2,160+$0+diff       $2,850+$0+diff
+Full cancel         $1,650 → $0 mất       $2,160 → $1,500      $2,850 → $2,700 refund
+                                          credit               cash refund</pre>
+
+    <h3>Break-Even Analysis</h3>
+    <pre>Premium (Flex vs Saver):    $720 - $550 = $170/người ($510/3 pax)
+Loss if cancel Saver:       $550/người ($1,650 total mất trắng)
+
+Break-even probability:     $170 / $550 = 30.9%
+
+✅ Nếu xác suất thay đổi kế hoạch > 31%, vé Flex đáng đầu tư hơn.</pre>
+
+    <h3>Khuyến Nghị</h3>
+    <pre>FLEXIBILITY RECOMMENDATION:
+
+Mức chắc chắn của bạn:      80% (likely)
+Xác suất thay đổi:          20%
+Break-even:                 31%
+
+Vì 20% < 31% → MUA VÉ SAVER ($550/người) ✅
+
+Expected cost:
+  Saver: 80% × $550 + 20% × $550(mất) = risk-adjusted ~$660/người
+  Flex:  $720/người guaranteed
+
+  Saver rẻ hơn $60/người expected value.
+
+⚠️ LƯU Ý: Nếu lịch trình trở nên bất định hơn (< 70% chắc chắn),
+   hãy nâng lên vé Flex.</pre>
+
+    <h3>Flexibility Scorecard</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Option</th><th>Giá/người</th><th>Flex Score</th><th>Break-even</th><th>Recommendation</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(63,185,80,.06)">
+            <td><strong>Saver Economy</strong></td>
+            <td>$550</td>
+            <td>15/100</td>
+            <td>—</td>
+            <td style="color:var(--green)">✅ Best cho 80%+ certain</td>
+          </tr>
+          <tr>
+            <td>Flex Economy</td>
+            <td>$720</td>
+            <td>65/100</td>
+            <td>31%</td>
+            <td>Nếu &lt; 70% certain</td>
+          </tr>
+          <tr>
+            <td>Full Refundable</td>
+            <td>$950</td>
+            <td>95/100</td>
+            <td>60%</td>
+            <td>Chỉ nếu &lt; 40% certain</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ PHASE 5: EXECUTIVE SUMMARY ══ -->
+  <section class="section">
+    <div class="section-title">🏆 PHASE 5: Executive Summary</div>
+
+    <div class="exec-summary">
+      <h2>✈️ TRAVEL OPTIMIZATION REPORT — HAN → SFO | 2 Adults + 1 Child | June 2026</h2>
+
+      <div class="summary-row">
+        <div class="summary-main">
+          <div class="big-label">🥇 Best Option</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--text);margin:6px 0;">Virtual Interlining via Seoul (ICN)</div>
+          <div style="color:var(--muted);font-size:13px;margin-bottom:16px;">VietJet HAN→ICN + United ICN→SFO</div>
+
+          <div class="big-label">True Total (3 người, gồm mọi phí)</div>
+          <div class="big-value">~$1,731</div>
+          <div class="sub-value">~$577/người</div>
+
+          <div style="margin-top:16px;padding:12px;background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:8px;">
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">💰 Tiết kiệm vs Bay Thẳng</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--green)">~$1,329 (-43%)</div>
+          </div>
+
+          <div style="margin-top:12px;font-size:13px;color:var(--muted);">
+            <div>↳ Hub routing via ICN: <strong style="color:var(--text)">-$1,020</strong></div>
+            <div>↳ Date shift (Tue/Wed): <strong style="color:var(--text)">-$150 ~ -$250</strong></div>
+            <div>↳ VietJet app booking: <strong style="color:var(--text)">-$50 ~ -$80</strong></div>
+            <div>↳ Pre-pay bag online: <strong style="color:var(--text)">-$30 ~ -$45</strong></div>
+          </div>
+        </div>
+
+        <div class="summary-stats">
+          <div class="stat-card">
+            <div class="stat-label">⏱️ Thời gian thêm</div>
+            <div class="stat-val yellow">+3 giờ</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">Layover ICN – top 3 airport</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">📊 Flex Score</div>
+            <div class="stat-val">15/100</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">Saver – OK cho 80%+ certain</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">⚠️ Risk Level</div>
+            <div class="stat-val yellow">MEDIUM</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">Cần bảo hiểm du lịch</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">📅 Booking Deadline</div>
+            <div class="stat-val green">20/4 – 5/5</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">54-Day Rule optimal</div>
+          </div>
+        </div>
+      </div>
+
+      <hr style="margin:20px 0"/>
+
+      <h3 style="color:var(--muted);font-size:13px;margin-bottom:10px">ALTERNATIVE PICKS</h3>
+      <div class="option-cards">
+        <div class="option-card">
+          <div class="option-rank">🥈</div>
+          <div class="option-info">
+            <div class="route">Korean Air via ICN</div>
+            <div class="carrier">HAN → ICN → SFO · 1-STOP · LEGACY · An toàn hơn</div>
+          </div>
+          <div class="option-price">
+            <div class="total">$2,070</div>
+            <div class="per-person">3 pax · $690/người</div>
+          </div>
+        </div>
+        <div class="option-card">
+          <div class="option-rank">🥉</div>
+          <div class="option-info">
+            <div class="route">EVA Air via TPE</div>
+            <div class="carrier">HAN → TPE → SFO · INTERLINING · Layover tốt</div>
+          </div>
+          <div class="option-price">
+            <div class="total">$1,950</div>
+            <div class="per-person">3 pax · $650/người</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ACTION ITEMS ══ -->
+  <section class="section">
+    <div class="section-title">✅ ACTION ITEMS — Việc Cần Làm Ngay</div>
+    <ul class="action-list">
+      <li>
+        <div class="action-num">1</div>
+        <div class="action-content">
+          <strong>Kiểm tra Korean Air Global Sale</strong> tại koreanair.com
+          <div class="action-meta">
+            <span class="badge high">HIGH</span>
+            <span class="badge date">📅 Tuần này</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">2</div>
+        <div class="action-content">
+          <strong>Đặt Google Flights Alert</strong> cho HAN → SFO, June 8–22
+          <div class="action-meta">
+            <span class="badge high">HIGH</span>
+            <span class="badge date">📅 Hôm nay</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">3</div>
+        <div class="action-content">
+          <strong>Tải VietJet app</strong> và check flash sale cho HAN → ICN
+          <div class="action-meta">
+            <span class="badge medium">MEDIUM</span>
+            <span class="badge date">📅 Tuần này</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">4</div>
+        <div class="action-content">
+          <strong>Đăng ký United MileagePlus</strong> (free) trước khi book
+          <div class="action-meta">
+            <span class="badge medium">MEDIUM</span>
+            <span class="badge date">📅 Trước khi book</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">5</div>
+        <div class="action-content">
+          <strong>Book vé</strong> — timing lý tưởng theo 54-Day Rule
+          <div class="action-meta">
+            <span class="badge high">HIGH</span>
+            <span class="badge date">📅 20/4 – 5/5/2026</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">6</div>
+        <div class="action-content">
+          <strong>Mua bảo hiểm du lịch</strong> nếu chọn virtual interlining
+          <div class="action-meta">
+            <span class="badge high">HIGH</span>
+            <span class="badge date">📅 Sau khi book</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-num">7</div>
+        <div class="action-content">
+          <strong>Xác nhận ngày về</strong> để phân tích round-trip
+          <div class="action-meta">
+            <span class="badge medium">MEDIUM</span>
+            <span class="badge date">📅 Khi quyết định</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══ CẦN XÁC NHẬN THÊM ══ -->
+  <section class="section">
+    <div class="section-title">❓ Cần Xác Nhận Thêm</div>
+    <p>Để tối ưu hơn nữa, cần biết thêm:</p>
+    <ol>
+      <li><strong>Ngày về?</strong> Round-trip hay one-way? Nếu round-trip, SFO → HAN ngày nào?</li>
+      <li><strong>Hành lý ký gửi?</strong> Mỗi người cần bao nhiêu kg? (ảnh hưởng lớn đến giá VietJet)</li>
+      <li><strong>Thẻ tín dụng?</strong> Bạn có Techcombank Visa / HSBC Premier / Vietcombank JCB không?</li>
+      <li><strong>Loyalty program?</strong> Có tích miles hãng nào không? (VN Airlines, United, Korean Air?)</li>
+      <li><strong>Tuổi trẻ em?</strong> Dưới 2 tuổi (infant – giảm 90% giá) hay 2–11 tuổi (child – giảm 25%)?</li>
+    </ol>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <p>Report generated by <strong>Travel Optimization Engine v1.0.0</strong></p>
+    <p>Mode: AI-Knowledge (no live API data) · Ngày phân tích: 28/03/2026</p>
+    <p style="margin-top:4px;font-size:11px">Giá ước tính dựa trên historical patterns · Có thể chênh ±10–15%</p>
+  </div>
+
+</div>
+</body>
+</html>
