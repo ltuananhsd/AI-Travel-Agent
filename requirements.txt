@@ -1,0 +1,14 @@
+# Travel Optimization Engine — Web App Dependencies
+
+# Web framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+
+# AI
+openai>=1.60.0
+
+# Flight data
+apify-client>=1.8.0
+
+# Config
+python-dotenv>=1.0.0

@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
-"""Shared configuration for Travel Optimization Engine API clients."""
+"""Shared configuration for Travel Optimization Engine — Apify + Custom LLM."""
 
 import os
 import sys
+from pathlib import Path
 
-# --- API Credentials (from environment variables) ---
-AMADEUS_API_KEY = os.environ.get("AMADEUS_API_KEY", "")
-AMADEUS_API_SECRET = os.environ.get("AMADEUS_API_SECRET", "")
-KIWI_API_KEY = os.environ.get("KIWI_API_KEY", "")
+# Load .env from project root
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass  # python-dotenv not installed, rely on system env vars
 
-# --- Base URLs ---
-# Amadeus: switch to production by setting AMADEUS_ENV=production
-AMADEUS_ENV = os.environ.get("AMADEUS_ENV", "test")
-AMADEUS_BASE_URL = (
-    "https://api.amadeus.com" if AMADEUS_ENV == "production"
-    else "https://test.api.amadeus.com"
-)
+# --- API Credentials ---
+APIFY_TOKEN = os.environ.get("APIFY_TOKEN", "")
 
-# Kiwi Tequila
-KIWI_BASE_URL = "https://api.tequila.kiwi.com"
+# LLM API (OpenAI-compatible)
+LLM_API_KEY = os.environ.get("LLM_API_KEY", "")
+LLM_MODEL = os.environ.get("LLM_MODEL", "ces-chatbot-gpt-5.4")
+LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://9router.vuhai.io.vn/v1")
+
+# --- Apify Actor ---
+APIFY_ACTOR_ID = "1dYHRKkEBHBPd0JM7"  # johnvc~google-flights-data-scraper
 
 # --- Default Search Parameters ---
 DEFAULTS = {
@@ -26,26 +29,23 @@ DEFAULTS = {
     "children": 0,
     "infants": 0,
     "currency": "USD",
-    "max_stops": 2,
-    "cabin_class": "ECONOMY",  # ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST
+    "max_stops": None,       # None = no limit
+    "max_price": None,       # None = no limit
+    "cabin_class": "ECONOMY",
     "max_results": 20,
-    "request_timeout": 30,  # seconds
+    "request_timeout": 120,  # seconds (Apify runs can take longer)
     "max_retries": 3,
+    "exclude_basic": False,
+    "max_pages": 1,
+    "hl": "en",
+    "gl": "us",
 }
 
 
-def validate_keys(*required_keys):
-    """Check that required API keys are set. Exit with message if missing."""
-    missing = []
-    key_map = {
-        "amadeus": (AMADEUS_API_KEY, AMADEUS_API_SECRET),
-        "kiwi": (KIWI_API_KEY,),
-    }
-    for key_name in required_keys:
-        values = key_map.get(key_name, ())
-        if any(not v for v in values):
-            missing.append(key_name.upper())
-    if missing:
-        print(f"ERROR: Missing API keys for: {', '.join(missing)}", file=sys.stderr)
-        print("Set environment variables: AMADEUS_API_KEY, AMADEUS_API_SECRET, KIWI_API_KEY", file=sys.stderr)
+def validate_keys():
+    """Check that APIFY_TOKEN is set. Exit with message if missing."""
+    if not APIFY_TOKEN:
+        print("ERROR: Missing APIFY_TOKEN", file=sys.stderr)
+        print("Set in .env file or environment: APIFY_TOKEN=apify_api_...", file=sys.stderr)
+        print("Get token at: https://console.apify.com/account/integrations", file=sys.stderr)
         sys.exit(1)
